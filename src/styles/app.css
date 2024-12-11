@@ -1,0 +1,26 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.App {
+    background-color: #021013;
+    min-height: 100vh;
+
+}
+
+.headerComponent {
+    background-color: #021013;
+    height: 100px;
+}
+
+.modelComponent {
+    background-color: #021013;
+    height: 500px;
+}
+
+.menuComponent {
+    background-color: #192028;
+    position: absolute;
+    width: 100%;
+}
