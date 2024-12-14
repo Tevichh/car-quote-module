@@ -1,0 +1,10 @@
+.card-menu {
+    background-color: transparent;
+    height: 150px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border: 2px solid #98eff9;
+    border-radius: 15px;
+    color: #98eff9;
+    background-color: #000000;
+}

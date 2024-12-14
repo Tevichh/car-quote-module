@@ -3,12 +3,14 @@ import "./styles/app.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { login } from "./services/login";
 import { HeaderComponent } from "./components/headerComponent/HeaderComponent";
-import { MenuComponent } from "./components/menuComponent/MenuComponent";
 import { ModelComponent } from "./components/modelComponent/ModelComponent";
 import { getInfoTable } from "./services/http";
+import { OrbitComponent } from "./components/orbitComponent/OrbitComponent";
+import { MenuComponent } from "./components/menuComponent/MenuComponent";
+import { removeModels } from "./services/render";
 
 function App() {
-  const [carInfo, setCarInfo] = useState({});
+  const [quoteInfo, setQuoteInfo] = useState({});
   const [userInfo, setUserInfo] = useState(null);
 
   useEffect(() => {
@@ -17,9 +19,12 @@ function App() {
 
       if (cc) {
         try {
-          const [carData, userData] = await getInfoTable(cc);
-          setCarInfo(carData);
+          const [quoteData, userData] = await getInfoTable(cc);
+          setQuoteInfo(quoteData);
           setUserInfo(userData);
+
+          removeModels(userData["MODELO"])
+
         } catch (error) {
           console.error("Error fetching data:", error);
         }
@@ -29,12 +34,15 @@ function App() {
     fetchData();
   }, []);
 
+  console.log(userInfo, quoteInfo)
+
 
   return (
     <div className="App">
       <HeaderComponent />
       <ModelComponent />
-      <MenuComponent />
+      <MenuComponent quoteInfo={quoteInfo} userOrder={userInfo} />
+      <OrbitComponent />
     </div>
   );
 }

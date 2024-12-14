@@ -14,6 +14,11 @@ export const getInfoTable = async (id) => {
 
         const valores = await response.json();
 
+        if (!valores[6]) {
+            alert("Parámetros invalidos...");
+            window.location.href = window.location.origin + window.location.pathname;
+        }
+
         const infoDataModel = {
             SEDAN: valores[0],
             HATCHBACK: valores[1],
