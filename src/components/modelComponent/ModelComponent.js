@@ -1,7 +1,7 @@
-import React, { useEffect, useRef } from 'react';
-import { initScene, cleanUpScene, loadGroups} from '../../services/render';
+import React, { useEffect, useRef} from 'react';
+import { initScene, cleanUpScene, loadGroups, findElement } from '../../services/render';
 
-export const ModelComponent = () => {
+export const ModelComponent = ({ getElement }) => {
     const mountRef = useRef(null);
 
     useEffect(() => {
@@ -13,5 +13,16 @@ export const ModelComponent = () => {
         };
     }, []);
 
-    return <div className="modelComponent" ref={mountRef} />;
+    const handleClick = (event) => {
+        const container = mountRef.current;
+        if (container) {
+            const result = findElement(event, container);
+            if (result) {
+                getElement(result);
+            }
+        }
+    };
+
+    return (
+        <div className="modelComponent" ref={mountRef} onClick={handleClick} />);
 };

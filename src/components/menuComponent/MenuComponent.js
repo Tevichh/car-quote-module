@@ -1,10 +1,14 @@
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
 import { QuoteComponent } from '../quoteComponent/QuoteComponent'
 import { SelectModel } from '../selectModel/SelectModel'
 import "./menuComponent.css"
 
-export const MenuComponent = ({ quoteInfo, userOrder }) => {
-  const [currentUserOrder, setCurrentUserOrder] = useState(userOrder)
+export const MenuComponent = ({ quoteInfo, userOrder, element }) => {
+  //const [currentUserOrder, setCurrentUserOrder] = useState(userOrder)
+
+  useEffect(() => {
+    console.log(element);
+  }, [element]);
 
   return (
 

@@ -12,6 +12,7 @@ import { removeModels } from "./services/render";
 function App() {
   const [quoteInfo, setQuoteInfo] = useState({});
   const [userInfo, setUserInfo] = useState(null);
+  const [elementClick, setElementClick] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,14 +35,16 @@ function App() {
     fetchData();
   }, []);
 
-  console.log(userInfo, quoteInfo)
+  const onGetElement = (element) => {
+    setElementClick(element)
+  }
 
 
   return (
     <div className="App">
       <HeaderComponent />
-      <ModelComponent />
-      <MenuComponent quoteInfo={quoteInfo} userOrder={userInfo} />
+      <ModelComponent getElement={onGetElement} />
+      <MenuComponent quoteInfo={quoteInfo} userOrder={userInfo} element={elementClick} />
       <OrbitComponent />
     </div>
   );

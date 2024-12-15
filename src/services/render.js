@@ -18,7 +18,7 @@ export const createScene = () => {
     timeline = new gsap.timeline({ defaults: { duration: 1 } });
 
     // Configurar cámara
-    camera = new THREE.PerspectiveCamera(25, 1, 0.1, 100);
+    camera = new THREE.PerspectiveCamera(22, 1, 0.1, 100);
     camera.position.set(7.3, 2.1, 4.7);
     camera.lookAt(new THREE.Vector3());
     scene.add(camera);
@@ -192,25 +192,32 @@ export const gsapAnimation = (camPos, targetPost) => {
         );
 };
 
-
-/* export function findElement(event) {
+// RAYCASTER PARA DETECTAR LOS OBJETOS DEL THREE JS
+export function findElement(event, container) {
+    const rect = container.getBoundingClientRect();
     const touch = event.touches ? event.touches[0] : null;
     const clientX = touch ? touch.clientX : event.clientX;
     const clientY = touch ? touch.clientY : event.clientY;
-    const normalizedX = (clientX / window.innerWidth) * 2 - 1;
-    const normalizedY = -(clientY / window.innerHeight) * 2 + 1;
+
+    if (clientX < rect.left || clientX > rect.right || clientY < rect.top || clientY > rect.bottom) {
+        return null;
+    }
+
+    const normalizedX = ((clientX - rect.left) / rect.width) * 2 - 1;
+    const normalizedY = -((clientY - rect.top) / rect.height) * 2 + 1;
 
     const raycaster = new THREE.Raycaster();
     raycaster.setFromCamera(new THREE.Vector2(normalizedX, normalizedY), camera);
 
-    const intersects = raycaster.intersectObjects(scene.children.filter(obj => !obj.userData.intangible));
+    const intersects = raycaster.intersectObjects(
+        scene.children.filter(obj => !obj.userData.intangible)
+    );
 
     if (intersects.length) {
         const parent = intersects[0].object;
-        const lista = parent.name.split("_");
-
-
-        return lista
+        alert(parent.name.split("_"));
+        return parent.name.split("_");
     }
+
+    return null;
 }
- */
