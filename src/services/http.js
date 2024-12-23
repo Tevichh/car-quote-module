@@ -36,3 +36,28 @@ export const getInfoTable = async (id) => {
         return [{}, null];
     }
 };
+export const send = async (data) => {
+    try {
+        const response = await fetch("https://itpa-sigtac.com/webgo/controlador/enviarCotizacion.php", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: `data=${JSON.stringify(data)}`,
+        });
+
+        if (!response.ok) {
+            throw new Error("Error en la solicitud: " + response.statusText);
+        }
+
+        const result = await response.json();
+
+        if (result) {
+            alert("Cotización enviada con éxito");
+            window.location.href = window.location.origin + window.location.pathname;
+        }
+
+    } catch (error) {
+        console.error("Error sending data:", error);
+    }
+};

@@ -1,8 +1,8 @@
 export const carColor = {
-    AMARILLO: 0X664F00,
-    AZUL: 0x06254B,
-    BLANCO: 0x555555,
+    AMARILLO: 0Xf7ff00,
+    AZUL: 0x0083ff,
+    BLANCO: 0xffffff,
     NEGRO: 0x030303,
-    ROJO: 0x1A0100,
-    VERDE: 0x071D0F
+    ROJO: 0xe62e1b,
+    VERDE: 0x00bb2d
 }

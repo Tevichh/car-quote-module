@@ -70,7 +70,6 @@ const useGsapAnimation = () => {
 
 
 export const OrbitComponent = () => {
-
     useEffect(() => {
         gsapAnimation(animations.original.cam, animations.original.pos);
     }, [])
@@ -85,6 +84,5 @@ export const OrbitComponent = () => {
             <button onClick={left}>V.L.IZQUIERDA</button>
             <button onClick={right}>V.L.DERECHA</button>
         </div>
-
     )
 }

@@ -3,11 +3,31 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from 'three/examples/jsm/Addons.js';
 import gsap from 'gsap';
 import { models } from '../models/carParts';
+import { groupParts, groupPartsExtra } from '../models/groupParts';
 
 let renderer, camera, scene, orbitControls, container, gltfLoaders, timeline;
 
-const loadingManager = new THREE.LoadingManager();
+var progressBarContainer = document.querySelector('.progress-bar-container');
+
+
+const loadingManager = new THREE.LoadingManager(
+    () => {
+        progressBarContainer = document.querySelector('.progress-bar-container');
+        progressBarContainer.style.display = 'none';
+        document.body.style.cursor = 'default';
+    },
+    (_, itemsToLoad, itemsLoaded) => {
+        progressBarContainer = document.querySelector('.progress-bar-container');
+        progressBarContainer.style.display = 'flex';
+        const progressBar = document.getElementById('progress-bar');
+        progressBar.value = (itemsToLoad / itemsLoaded) * 100;
+        document.body.style.cursor = 'wait';
+    },
+    () => { }
+);
 gltfLoaders = new GLTFLoader(loadingManager);
+
+
 
 
 // Crear y configurar la escena
@@ -34,7 +54,6 @@ export const createScene = () => {
     orbitControls.maxPolarAngle = THREE.MathUtils.degToRad(80);
     orbitControls.maxDistance = 10;
     orbitControls.minDistance = 3;
-    console.log(orbitControls)
 
 
     // Añadir grid (suelo)
@@ -136,7 +155,6 @@ export const removeModels = (modelModal) => {
             const rute = model.modelCar.rute;
             const group = model.modelCar.group;
             const scale = model.scale;
-            //alert(`Modelo seleccionado: ${modelModal}`);
 
             const oldModels = new THREE.Group();
 
@@ -215,9 +233,10 @@ export function findElement(event, container) {
 
     if (intersects.length) {
         const parent = intersects[0].object;
-        alert(parent.name.split("_"));
+        if (!groupParts.includes(parent.name.split("_")[0]) && !groupPartsExtra.includes(parent.name.split("_")[0])) return null;
         return parent.name.split("_");
     }
 
     return null;
 }
+

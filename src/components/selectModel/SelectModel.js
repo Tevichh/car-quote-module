@@ -2,14 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { models } from '../../models/carParts';
 import { removeModels } from '../../services/render';
 import { carColor } from '../../models/carColors';
+import { changeColorCar } from '../../services/damage';
+
 
 export const SelectModel = ({ order }) => {
     const [selectedModel, setSelectedModel] = useState("");
-    const [selectColor, setSelectColor] = useState("");
+    const [selectColor, setSelectColor] = useState("AMARILLO");
 
     useEffect(() => {
         if (order) {
             setSelectedModel(order["MODELO"])
+            setSelectColor(order["Color"])
         }
     }, [order])
 
@@ -17,12 +20,16 @@ export const SelectModel = ({ order }) => {
         const modelModal = event.target.value;
         removeModels(modelModal)
         setSelectedModel(modelModal);
+        setTimeout(() => {
+            changeColorCar(selectColor);
+        }, 1000);
+
     };
 
     const handleColorChange = (event) => {
         const colorModal = event.target.value;
-        removeModels(colorModal)
         setSelectColor(colorModal);
+        changeColorCar(colorModal);
     };
 
     return (

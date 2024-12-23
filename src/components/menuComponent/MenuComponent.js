@@ -18,7 +18,7 @@ export const MenuComponent = ({ quoteInfo, userOrder, element }) => {
     <div className='menuComponent container-fluid p-3'>
       <div className="row g-4">
         <div className="col-md-5" >
-          <QuoteComponent elementSelect={elementSelected}></QuoteComponent>
+          <QuoteComponent elementSelect={elementSelected} tableQuote={quoteInfo}></QuoteComponent>
         </div>
         <div className="col-md-5">
           <SelectModel order={userOrder}></SelectModel>

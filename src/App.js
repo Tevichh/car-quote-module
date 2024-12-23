@@ -8,6 +8,12 @@ import { getInfoTable } from "./services/http";
 import { OrbitComponent } from "./components/orbitComponent/OrbitComponent";
 import { MenuComponent } from "./components/menuComponent/MenuComponent";
 import { removeModels } from "./services/render";
+import { ModelSelected } from "./models/ModelSelected";
+import Progress from "./Progress/Progress";
+import { changeColorCar } from "./services/damage";
+
+
+export const userModelOrder = new ModelSelected("");
 
 function App() {
   const [quoteInfo, setQuoteInfo] = useState({});
@@ -24,7 +30,12 @@ function App() {
           setQuoteInfo(quoteData);
           setUserInfo(userData);
 
-          removeModels(userData["MODELO"])
+          removeModels(userData["MODELO"]);
+          setTimeout(() => {
+            changeColorCar(userData["Color"]);
+          }, 1000);
+          userModelOrder.name = userData["MODELO"];
+          userModelOrder.color = userData["Color"];
 
         } catch (error) {
           console.error("Error fetching data:", error);
@@ -42,6 +53,7 @@ function App() {
 
   return (
     <div className="App">
+      <Progress />
       <HeaderComponent />
       <ModelComponent getElement={onGetElement} />
       <MenuComponent quoteInfo={quoteInfo} userOrder={userInfo} element={elementClick} />
