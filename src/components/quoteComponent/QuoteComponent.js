@@ -56,7 +56,7 @@ export const QuoteComponent = ({ elementSelect, tableQuote }) => {
             //ABRIR MODAL PARA SELECCIONAR PINTURA
             if (groupParts.includes(piece.group)) handleShow();
 
-            if(groupPartsExtra.includes(piece.group)) alert(userModelOrder[piece.group][piece.part].damage);
+            if (groupPartsExtra.includes(piece.group)) alert(userModelOrder[piece.group][piece.part].damage);
 
             //DEFINIR MODAL PARA PIEZAS EXTRAS
         }
@@ -67,12 +67,54 @@ export const QuoteComponent = ({ elementSelect, tableQuote }) => {
 
         if (userModelOrder[piece.group][piece.part].paint !== "Default") {
             changePieceCar(piece.group, piece.part);
+            if (piece.part === "P1") seleccionarTodas(true);
             sumarCotizacion(userModelOrder, tableQuote)
         } else {
             changePieceCar(piece.group, piece.part, userModelOrder["color"]);
-            sumarCotizacion(userModelOrder, tableQuote)
+            seleccionarTodas(false);
+            sumarCotizacion(userModelOrder, tableQuote);
         }
 
+
+    }
+
+    const seleccionarTodas = (activo) => {
+        if (activo) {
+            changePieceCar(piece.group, "P2");
+            changePieceCar(piece.group, "P3");
+            changePieceCar(piece.group, "P4");
+            changePieceCar(piece.group, "P5");
+        } else {
+            changePieceCar(piece.group, "P2", userModelOrder["color"]);
+            changePieceCar(piece.group, "P3", userModelOrder["color"]);
+            changePieceCar(piece.group, "P4", userModelOrder["color"]);
+            changePieceCar(piece.group, "P5", userModelOrder["color"]);
+        }
+
+        userModelOrder[piece.group]["P2"] = {
+            paint: "Default",
+            layer: "Monocapa",
+            line: "Baslac",
+            varnish: "40-22"
+        };
+        userModelOrder[piece.group]["P3"] = {
+            paint: "Default",
+            layer: "Monocapa",
+            line: "Baslac",
+            varnish: "40-22"
+        };
+        userModelOrder[piece.group]["P4"] = {
+            paint: "Default",
+            layer: "Monocapa",
+            line: "Baslac",
+            varnish: "40-22"
+        };
+        userModelOrder[piece.group]["P5"] = {
+            paint: "Default",
+            layer: "Monocapa",
+            line: "Baslac",
+            varnish: "40-22"
+        };
 
     }
 
