@@ -14,8 +14,10 @@ export const changeColorCar = (color) => {
             const childDivided = child.name.split("_");
             const part = childDivided[0];
 
-            if (groupParts.includes(part) || part === "MIRRORL" || part === "MIRRORR") {
+            if (groupParts.includes(part)) {
                 child.material.color.set(colorHex);
+            } else if (part === "MIRRORL" || part === "MIRRORR") {
+                child.material.color.set(0x000000);
             }
         }
     })
@@ -38,6 +40,33 @@ export const changePieceCar = (partModel, pieceModel, colorPaint = "") => {
             }
         }
     })
+}
+
+export const changePieceExtraCar = (partModel, pieceModel, state) => {
+    const color = 0xf39c12;
+    const scene = getScene();
+
+
+    scene.traverse((child) => {
+        if (child instanceof THREE.Mesh) {
+            const childDivided = child.name.split("_");
+            const part = childDivided[0];
+            const piece = childDivided[1];
+
+            if (part === partModel && piece === pieceModel && state === 1) {
+                child.material.color.set(color);
+            } else if (part === partModel && piece === pieceModel && state === 0) {
+                child.material.color.set(userModelOrder[partModel][pieceModel].colorDefault);
+            }
+
+
+
+            /* if (part === partModel && piece === pieceModel) {
+                child.material.color.set(color);
+            } */
+        }
+    })
+
 }
 
 export const sumarCotizacion = (modeloCotizar, tabla) => {

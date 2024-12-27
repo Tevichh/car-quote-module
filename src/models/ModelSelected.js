@@ -13,8 +13,9 @@ class Part {
 }
 
 class PartExtra {  //PARA RIN - LUZ - ESPEJO
-    constructor(damage = 0) {
+    constructor(damage = 0, colorDefault = 0x000000) {
         this.damage = damage
+        this.colorDefault = colorDefault
     }
 }
 
@@ -152,17 +153,17 @@ export class ModelSelected {
         };
 
         this.LIGHT = {
-            FL: new Part(paint, layer, line, varnish),
-            FR: new Part(paint, layer, line, varnish),
-            BL: new Part(paint, layer, line, varnish),
-            BR: new Part(paint, layer, line, varnish)
+            FL: new PartExtra(),
+            FR: new PartExtra(),
+            BL: new PartExtra(0, 0x721C15),
+            BR: new PartExtra(0, 0x721C15)
         };
 
         this.RIN = {
-            FL: new PartExtra(),
-            FR: new PartExtra(),
-            BL: new PartExtra(),
-            BR: new PartExtra()
+            FL: new PartExtra(0, 0xffffff),
+            FR: new PartExtra(0, 0xffffff),
+            BL: new PartExtra(0, 0xffffff),
+            BR: new PartExtra(0, 0xffffff)
         };
 
         this.MIRRORL = {

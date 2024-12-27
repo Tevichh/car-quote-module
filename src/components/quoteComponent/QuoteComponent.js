@@ -1,8 +1,8 @@
-import React, { use, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Piece } from '../../models/Piece';
 import { colorState, layers, lines, varnishes } from '../../models/state';
 import { Button, Modal } from 'react-bootstrap';
-import { changePieceCar, sumarCotizacion } from '../../services/damage';
+import { changePieceCar, changePieceExtraCar, sumarCotizacion } from '../../services/damage';
 import { userModelOrder } from '../../App';
 import { groupParts, groupPartsExtra } from '../../models/groupParts';
 import "./modal.css"
@@ -56,11 +56,18 @@ export const QuoteComponent = ({ elementSelect, tableQuote }) => {
             //ABRIR MODAL PARA SELECCIONAR PINTURA
             if (groupParts.includes(piece.group)) handleShow();
 
-            if (groupPartsExtra.includes(piece.group)) alert(userModelOrder[piece.group][piece.part].damage);
+            //DEFINIR FUNCIONES PARA PIEZAS EXTRAS
+            if (groupPartsExtra.includes(piece.group)) seleccionarPiezaExtra();
 
-            //DEFINIR MODAL PARA PIEZAS EXTRAS
+
         }
     }, [elementSelect]);
+
+    const seleccionarPiezaExtra = () => {
+        alert(userModelOrder[piece.group][piece.part].damage)
+        userModelOrder[piece.group][piece.part].state = userModelOrder[piece.group][piece.part].state === 1 ? 0 : 1;
+        changePieceExtraCar(piece.group, piece.part, userModelOrder[piece.group][piece.part].state);
+    }
 
     const seleccionarPieza = () => {
         userModelOrder[piece.group][piece.part] = piece.generateJson();
@@ -77,7 +84,7 @@ export const QuoteComponent = ({ elementSelect, tableQuote }) => {
 
 
     }
-
+    //EJEMPLO SELECCIONO PIEA P1 
     const seleccionarTodas = (activo) => {
         if (activo) {
             changePieceCar(piece.group, "P2");
