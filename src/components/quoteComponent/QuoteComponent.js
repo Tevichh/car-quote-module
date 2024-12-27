@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import { Piece } from '../../models/Piece';
 import { colorState, layers, lines, varnishes } from '../../models/state';
 import { Button, Modal } from 'react-bootstrap';
 import { changePieceCar, sumarCotizacion } from '../../services/damage';
 import { userModelOrder } from '../../App';
-import { groupParts } from '../../models/groupParts';
+import { groupParts, groupPartsExtra } from '../../models/groupParts';
 import "./modal.css"
 
 const paintState = colorState();
@@ -55,6 +55,8 @@ export const QuoteComponent = ({ elementSelect, tableQuote }) => {
 
             //ABRIR MODAL PARA SELECCIONAR PINTURA
             if (groupParts.includes(piece.group)) handleShow();
+
+            if(groupPartsExtra.includes(piece.group)) alert(userModelOrder[piece.group][piece.part].damage);
 
             //DEFINIR MODAL PARA PIEZAS EXTRAS
         }
