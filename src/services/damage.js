@@ -1,3 +1,4 @@
+import { userModelOrder } from "../App";
 import { carColor } from "../models/carColors";
 import { groupParts } from "../models/groupParts";
 import { getScene } from "./render"
@@ -13,7 +14,7 @@ export const changeColorCar = (color) => {
             const childDivided = child.name.split("_");
             const part = childDivided[0];
 
-            if (groupParts.includes(part)) {
+            if (groupParts.includes(part) || part === "MIRRORL" || part === "MIRRORR") {
                 child.material.color.set(colorHex);
             }
         }
@@ -45,8 +46,10 @@ export const sumarCotizacion = (modeloCotizar, tabla) => {
         if (groupParts.includes(key)) {
             for (const [key2, value2] of Object.entries(value)) {
                 if (value2.paint !== "Default") {
-                    //console.log(key, value2)
-                    continue
+                    document.getElementById("gramosUsados").innerHTML += `<br>${tabla[modeloCotizar.name][`${key}_${key2}`]}`;
+
+
+                    console.log(tabla)
                 }
             }
         }

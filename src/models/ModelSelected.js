@@ -19,7 +19,8 @@ class PartExtra {  //PARA RIN - LUZ - ESPEJO
 }
 
 export class ModelSelected {
-    constructor(name, color="AMARILLO") {
+    constructor(id = "", name, color = "AMARILLO") {
+        this.id = id;
         this.name = name;
         this.color = color;
         this.RIGHTDOORF = {

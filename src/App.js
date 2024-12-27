@@ -36,6 +36,7 @@ function App() {
           }, 1000);
           userModelOrder.name = userData["MODELO"];
           userModelOrder.color = userData["Color"];
+          userModelOrder.id = cc;
 
         } catch (error) {
           console.error("Error fetching data:", error);

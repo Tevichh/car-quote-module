@@ -3,6 +3,8 @@ import { models } from '../../models/carParts';
 import { removeModels } from '../../services/render';
 import { carColor } from '../../models/carColors';
 import { changeColorCar } from '../../services/damage';
+import { userModelOrder } from '../../App';
+
 
 
 export const SelectModel = ({ order }) => {
@@ -30,6 +32,7 @@ export const SelectModel = ({ order }) => {
         const colorModal = event.target.value;
         setSelectColor(colorModal);
         changeColorCar(colorModal);
+        userModelOrder.color = colorModal;
     };
 
     return (
@@ -61,7 +64,7 @@ export const SelectModel = ({ order }) => {
                         className="form-select"
                     >
                         {Object.keys(carColor).map((color) => (
-                            <option value={color}>{color}</option>
+                            <option key={color} value={color}>{color}</option>
                         ))}
                     </select>
                 </div>

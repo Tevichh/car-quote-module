@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { QuoteComponent } from '../quoteComponent/QuoteComponent'
 import { SelectModel } from '../selectModel/SelectModel'
 import "./menuComponent.css"
+import { send } from '../../services/http'
 
 export const MenuComponent = ({ quoteInfo, userOrder, element }) => {
   //const [currentUserOrder, setCurrentUserOrder] = useState(userOrder)
@@ -24,7 +25,7 @@ export const MenuComponent = ({ quoteInfo, userOrder, element }) => {
           <SelectModel order={userOrder}></SelectModel>
         </div>
         <div className="col-md-2 d-flex justify-content-center align-items-center">
-          <button>Enviar Cotización</button>
+          <button onClick={send}>Enviar Cotización</button>
         </div>
       </div>
 

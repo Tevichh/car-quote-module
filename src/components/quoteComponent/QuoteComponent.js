@@ -5,6 +5,7 @@ import { Button, Modal } from 'react-bootstrap';
 import { changePieceCar, sumarCotizacion } from '../../services/damage';
 import { userModelOrder } from '../../App';
 import { groupParts } from '../../models/groupParts';
+import "./modal.css"
 
 const paintState = colorState();
 
@@ -20,14 +21,15 @@ export const QuoteComponent = ({ elementSelect, tableQuote }) => {
 
 
     const [show, setShow] = useState(false);
-    const handleClose = () => { setShow(false); reiniciarValores() };
-    const handleShow = () => setShow(true);
+    const handleClose = () => { setShow(false) };
+    const handleShow = () => { setShow(true); reiniciarValores() };
 
     const reiniciarValores = () => {
-        setPaint("Default");
-        setLayer("Monocapa");
-        setLine("Baslac");
-        setVarnish("40-22");
+        const model = userModelOrder[piece.group][piece.part];
+        setPaint(model.paint ? model.paint : "Default");
+        setLayer(model.layer ? model.layer : "Monocapa");
+        setLine(model.line ? model.line : "Baslac");
+        setVarnish(model.varnish ? model.varnish : "40-22");
     }
 
     const handleSave = () => {
@@ -36,6 +38,8 @@ export const QuoteComponent = ({ elementSelect, tableQuote }) => {
         piece.layer = layer;
         piece.line = line;
         piece.varnish = varnish;
+
+        console.log(piece)
 
         reiniciarValores()
 
@@ -48,7 +52,11 @@ export const QuoteComponent = ({ elementSelect, tableQuote }) => {
         if (elementSelect[0] && elementSelect[1]) {
             piece.group = elementSelect[0]
             piece.part = elementSelect[1]
-            handleShow();
+
+            //ABRIR MODAL PARA SELECCIONAR PINTURA
+            if (groupParts.includes(piece.group)) handleShow();
+
+            //DEFINIR MODAL PARA PIEZAS EXTRAS
         }
     }, [elementSelect]);
 
@@ -58,7 +66,7 @@ export const QuoteComponent = ({ elementSelect, tableQuote }) => {
         if (userModelOrder[piece.group][piece.part].paint !== "Default") {
             changePieceCar(piece.group, piece.part);
             sumarCotizacion(userModelOrder, tableQuote)
-        }else{
+        } else {
             changePieceCar(piece.group, piece.part, userModelOrder["color"]);
             sumarCotizacion(userModelOrder, tableQuote)
         }
@@ -76,11 +84,11 @@ export const QuoteComponent = ({ elementSelect, tableQuote }) => {
                 </ul>
             </div>
 
-            <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
+            <Modal show={show} onHide={handleClose} className='modal-dark'>
+                <Modal.Header closeButton className="modal-dark">
                     <Modal.Title>{piece.group + " " + piece.part}</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>
+                <Modal.Body className="modal-dark">
 
                     <div className="row gy-3">
                         <div className="col-md-12">
@@ -118,7 +126,7 @@ export const QuoteComponent = ({ elementSelect, tableQuote }) => {
                     </div>
 
                 </Modal.Body>
-                <Modal.Footer>
+                <Modal.Footer className="modal-dark">
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
