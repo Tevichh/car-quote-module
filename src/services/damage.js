@@ -1,3 +1,4 @@
+import { use } from "react";
 import { userModelOrder } from "../App";
 import { carColor } from "../models/carColors";
 import { groupParts } from "../models/groupParts";
@@ -71,11 +72,13 @@ export const changePieceExtraCar = (partModel, pieceModel, state) => {
 
 export const sumarCotizacion = (modeloCotizar, tabla) => {
 
+    if (!tabla[modeloCotizar.name]) return;
+
     for (const [key, value] of Object.entries(modeloCotizar)) {
         if (groupParts.includes(key)) {
             for (const [key2, value2] of Object.entries(value)) { // FILTRA PIEZAS DIFERENTES A DEFAULT //KEY : GRUPO - KEY2: PIEZA
                 if (value2.paint !== "Default") {
-                    document.getElementById("gramosUsados").innerHTML += `<br>${tabla[modeloCotizar.name][`${key}_${key2}`]}`;  
+                    document.getElementById("gramosUsados").innerHTML += `<br>${tabla[modeloCotizar.name][`${key}_${key2}`]}`;
 
 
                     //FUNCIONES COTIZAR
@@ -87,4 +90,20 @@ export const sumarCotizacion = (modeloCotizar, tabla) => {
             }
         }
     }
+}
+
+
+export const cargarTablaModelo = (tabla) => {
+    for (const [key, value] of Object.entries(userModelOrder)) {
+        if (groupParts.includes(key)) {
+            for (const [key2, value2] of Object.entries(value)) { // FILTRA PIEZAS DIFERENTES A DEFAULT //KEY : GRUPO - KEY2: PIEZA
+                //console.log(tabla[userModelOrder.name][`${key}_${key2}`])
+                userModelOrder[key][key2] = JSON.parse(tabla[`${key}_${key2}`])
+            }
+        }
+    }
+
+    console.log(userModelOrder.name)
+
+    sumarCotizacion(userModelOrder, tabla)
 }

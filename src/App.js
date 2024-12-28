@@ -10,7 +10,7 @@ import { MenuComponent } from "./components/menuComponent/MenuComponent";
 import { removeModels } from "./services/render";
 import { ModelSelected } from "./models/ModelSelected";
 import Progress from "./Progress/Progress";
-import { changeColorCar } from "./services/damage";
+import { cargarTablaModelo, changeColorCar } from "./services/damage";
 
 
 export const userModelOrder = new ModelSelected("");
@@ -37,6 +37,8 @@ function App() {
           userModelOrder.name = userData["MODELO"];
           userModelOrder.color = userData["Color"];
           userModelOrder.id = cc;
+
+          cargarTablaModelo(userData);
 
         } catch (error) {
           console.error("Error fetching data:", error);
