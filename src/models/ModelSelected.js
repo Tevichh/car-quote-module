@@ -2,13 +2,16 @@ const paint = "Default";
 const layer = "Monocapa";
 const line = "Baslac";
 const varnish = "40-22";
+const latoneriax = "cualquier cosa"
 
 class Part {
-    constructor(paint, layer, line, varnish) {
+    constructor(paint, layer, line, varnish, latoneria = latoneriax) {
         this.paint = paint;
         this.layer = layer;
         this.line = line;
         this.varnish = varnish;
+        this.latoneria = latoneria;
+
     }
 }
 

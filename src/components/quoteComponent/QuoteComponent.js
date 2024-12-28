@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Piece } from '../../models/Piece';
-import { colorState, layers, lines, varnishes } from '../../models/state';
+import { colorState, latonerias, layers, lines, varnishes } from '../../models/state';
 import { Button, Modal } from 'react-bootstrap';
 import { changePieceCar, changePieceExtraCar, sumarCotizacion } from '../../services/damage';
 import { userModelOrder } from '../../App';
@@ -18,6 +18,7 @@ export const QuoteComponent = ({ elementSelect, tableQuote }) => {
     const [layer, setLayer] = useState("Monocapa");
     const [line, setLine] = useState("Baslac");
     const [varnish, setVarnish] = useState("40-22");
+    const [latoneria, setLatoneria] = useState("CUALQUIER COSA");
 
 
     const [show, setShow] = useState(false);
@@ -30,6 +31,8 @@ export const QuoteComponent = ({ elementSelect, tableQuote }) => {
         setLayer(model.layer ? model.layer : "Monocapa");
         setLine(model.line ? model.line : "Baslac");
         setVarnish(model.varnish ? model.varnish : "40-22");
+        setLatoneria(model.latoneria ? model.latoneria : "CUALQUIER COSA");
+
     }
 
     const handleSave = () => {
@@ -38,6 +41,7 @@ export const QuoteComponent = ({ elementSelect, tableQuote }) => {
         piece.layer = layer;
         piece.line = line;
         piece.varnish = varnish;
+        piece.latoneria = latoneria;
 
         console.log(piece)
 
@@ -74,13 +78,13 @@ export const QuoteComponent = ({ elementSelect, tableQuote }) => {
 
         if (userModelOrder[piece.group][piece.part].paint !== "Default") {
             changePieceCar(piece.group, piece.part);
-            if (piece.part === "P1") seleccionarTodas(true);
-            sumarCotizacion(userModelOrder, tableQuote)
+            if (piece.part === "P1") seleccionarTodas(true); // EJEMPLO SELECCIONO P1
         } else {
             changePieceCar(piece.group, piece.part, userModelOrder["color"]);
             seleccionarTodas(false);
-            sumarCotizacion(userModelOrder, tableQuote);
         }
+
+        sumarCotizacion(userModelOrder, tableQuote)
 
 
     }
@@ -174,6 +178,16 @@ export const QuoteComponent = ({ elementSelect, tableQuote }) => {
                                 ))}
                             </select>
                         </div>
+                        
+                        {/* EJEMPLO CARGAR NUEVO SELECT ATRIBUTOS */}
+                        <div className="col-md-12">
+                            <label>TIPO DE LATONERIA</label>
+                            <select className="form-select" value={latoneria} onChange={(e) => setLine(e.target.value)}>
+                                {latonerias.map((damage) => (
+                                    <option value={damage} key={damage}>{damage}</option>
+                                ))}
+                            </select>
+                        </div>
                     </div>
 
                 </Modal.Body>
@@ -181,7 +195,7 @@ export const QuoteComponent = ({ elementSelect, tableQuote }) => {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={handleSave}>
+                    <Button variant="primary" onClick={handleSave}>{/*  BOTON GUARDAR */}
                         Save Changes
                     </Button>
                 </Modal.Footer>

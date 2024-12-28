@@ -13,3 +13,5 @@ export const lines = ["Baslac", "Linea 55", "Linea 90", "Linea 68", "Linea 22", 
 
 export const varnishes = ["40-22", "923-155", "923-144", "923-255", "923-610", "923-625", "923-630", "923-645", "40-10", "923-53"]
 
+export const latonerias = ["CUALQUIER COSA", "CUALQUIER COSA 2", "CUALQUIER COSA 3", "CUALQUIER COSA 4", "CUALQUIER COSA 5", "CUALQUIER COSA 6", "CUALQUIER COSA 7", "CUALQUIER COSA 8", "CUALQUIER COSA 9", "CUALQUIER COSA 10"]
+

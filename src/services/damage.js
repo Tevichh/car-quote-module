@@ -43,7 +43,7 @@ export const changePieceCar = (partModel, pieceModel, colorPaint = "") => {
 }
 
 export const changePieceExtraCar = (partModel, pieceModel, state) => {
-    const color = 0xf39c12;
+    const color = 0xff0000;
     const scene = getScene();
 
 
@@ -73,12 +73,16 @@ export const sumarCotizacion = (modeloCotizar, tabla) => {
 
     for (const [key, value] of Object.entries(modeloCotizar)) {
         if (groupParts.includes(key)) {
-            for (const [key2, value2] of Object.entries(value)) {
+            for (const [key2, value2] of Object.entries(value)) { // FILTRA PIEZAS DIFERENTES A DEFAULT //KEY : GRUPO - KEY2: PIEZA
                 if (value2.paint !== "Default") {
-                    document.getElementById("gramosUsados").innerHTML += `<br>${tabla[modeloCotizar.name][`${key}_${key2}`]}`;
+                    document.getElementById("gramosUsados").innerHTML += `<br>${tabla[modeloCotizar.name][`${key}_${key2}`]}`;  
 
 
-                    console.log(tabla)
+                    //FUNCIONES COTIZAR
+                    //console.log(tabla)
+                    //console.log(modeloCotizar)
+
+                    console.log(tabla[modeloCotizar.name][`${key}_${key2}`])
                 }
             }
         }
