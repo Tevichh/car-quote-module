@@ -33,12 +33,13 @@ function App() {
           removeModels(userData["MODELO"]);
           setTimeout(() => {
             changeColorCar(userData["Color"]);
-          }, 1000);
-          userModelOrder.name = userData["MODELO"];
-          userModelOrder.color = userData["Color"];
-          userModelOrder.id = cc;
+            userModelOrder.name = userData["MODELO"];
+            userModelOrder.color = userData["Color"];
+            userModelOrder.id = cc;
 
-          cargarTablaModelo(userData);
+            cargarTablaModelo(userData);
+          }, 1000);
+
 
         } catch (error) {
           console.error("Error fetching data:", error);

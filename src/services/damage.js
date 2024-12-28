@@ -25,7 +25,6 @@ export const changeColorCar = (color) => {
 }
 
 export const changePieceCar = (partModel, pieceModel, colorPaint = "") => {
-
     const scene = getScene();
     const color = colorPaint === "" ? 0x00ff00 : carColor[colorPaint];
 
@@ -99,6 +98,10 @@ export const cargarTablaModelo = (tabla) => {
             for (const [key2, value2] of Object.entries(value)) { // FILTRA PIEZAS DIFERENTES A DEFAULT //KEY : GRUPO - KEY2: PIEZA
                 //console.log(tabla[userModelOrder.name][`${key}_${key2}`])
                 userModelOrder[key][key2] = JSON.parse(tabla[`${key}_${key2}`])
+
+                if (userModelOrder[key][key2].paint !== "Default") {
+                    changePieceCar(key, key2)
+                }
             }
         }
     }
