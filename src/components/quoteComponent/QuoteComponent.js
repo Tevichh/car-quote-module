@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Piece } from '../../models/Piece';
 import { colorState, latonerias, layers, lines, varnishes } from '../../models/state';
 import { Button, Modal } from 'react-bootstrap';
-import { changePieceCar, changePieceExtraCar, sumarCotizacion } from '../../services/damage';
+import { actualizarSeleccionP1, changePieceCar, changePieceExtraCar, sumarCotizacion } from '../../services/damage';
 import { userModelOrder } from '../../App';
 import { groupParts, groupPartsExtra } from '../../models/groupParts';
 import "./modal.css"
@@ -78,56 +78,17 @@ export const QuoteComponent = ({ elementSelect, tableQuote }) => {
 
         if (userModelOrder[piece.group][piece.part].paint !== "Default") {
             changePieceCar(piece.group, piece.part);
-            if (piece.part === "P1") seleccionarTodas(true); // EJEMPLO SELECCIONO P1
+            if (piece.part === "P1") actualizarSeleccionP1(piece.group, true); // EJEMPLO SELECCIONO P1
         } else {
             changePieceCar(piece.group, piece.part, userModelOrder["color"]);
-            seleccionarTodas(false);
+            actualizarSeleccionP1(piece.group, false);
         }
 
         sumarCotizacion(userModelOrder, tableQuote)
 
 
     }
-    //EJEMPLO SELECCIONO PIEA P1 
-    const seleccionarTodas = (activo) => {
-        if (activo) {
-            changePieceCar(piece.group, "P2");
-            changePieceCar(piece.group, "P3");
-            changePieceCar(piece.group, "P4");
-            changePieceCar(piece.group, "P5");
-        } else {
-            changePieceCar(piece.group, "P2", userModelOrder["color"]);
-            changePieceCar(piece.group, "P3", userModelOrder["color"]);
-            changePieceCar(piece.group, "P4", userModelOrder["color"]);
-            changePieceCar(piece.group, "P5", userModelOrder["color"]);
-        }
-
-        userModelOrder[piece.group]["P2"] = {
-            paint: "Default",
-            layer: "Monocapa",
-            line: "Baslac",
-            varnish: "40-22"
-        };
-        userModelOrder[piece.group]["P3"] = {
-            paint: "Default",
-            layer: "Monocapa",
-            line: "Baslac",
-            varnish: "40-22"
-        };
-        userModelOrder[piece.group]["P4"] = {
-            paint: "Default",
-            layer: "Monocapa",
-            line: "Baslac",
-            varnish: "40-22"
-        };
-        userModelOrder[piece.group]["P5"] = {
-            paint: "Default",
-            layer: "Monocapa",
-            line: "Baslac",
-            varnish: "40-22"
-        };
-
-    }
+    
 
     return (
         <>

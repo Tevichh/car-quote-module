@@ -1,4 +1,3 @@
-import { use } from "react";
 import { userModelOrder } from "../App";
 import { carColor } from "../models/carColors";
 import { groupParts } from "../models/groupParts";
@@ -101,12 +100,34 @@ export const cargarTablaModelo = (tabla) => {
 
                 if (userModelOrder[key][key2].paint !== "Default") {
                     changePieceCar(key, key2)
+
+                    if (key2 === "P1") {
+                        actualizarSeleccionP1(key, true);
+                    }
                 }
             }
         }
+
+        sumarCotizacion(userModelOrder, tabla)
     }
-
-    console.log(userModelOrder.name)
-
-    sumarCotizacion(userModelOrder, tabla)
 }
+
+export const actualizarSeleccionP1 = (grupo, activo) => {
+    const piezas = ["P2", "P3", "P4", "P5"];
+
+    piezas.forEach(pieza => {
+        if (activo) {
+            changePieceCar(grupo, pieza);
+        } else {
+            changePieceCar(grupo, pieza, userModelOrder["color"]);
+        }
+
+        // Actualizar el modelo de usuario con los valores predeterminados
+        userModelOrder[grupo][pieza] = {
+            paint: "Default",
+            layer: "Monocapa",
+            line: "Baslac",
+            varnish: "40-22"
+        };
+    });
+};
