@@ -68,8 +68,8 @@ export const QuoteComponent = ({ elementSelect, tableQuote }) => {
     }, [elementSelect]);
 
     const seleccionarPiezaExtra = () => {
-        alert(userModelOrder[piece.group][piece.part].damage)
-        userModelOrder[piece.group][piece.part].state = userModelOrder[piece.group][piece.part].damage === 1 ? 0 : 1;
+        //alert(userModelOrder[piece.group][piece.part].damage)
+        userModelOrder[piece.group][piece.part].damage = userModelOrder[piece.group][piece.part].damage === 1 ? 0 : 1;
         changePieceExtraCar(piece.group, piece.part, userModelOrder[piece.group][piece.part].damage);
     }
 
