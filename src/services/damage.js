@@ -1,6 +1,6 @@
 import { userModelOrder } from "../App";
 import { carColor } from "../models/carColors";
-import { groupParts } from "../models/groupParts";
+import { groupParts, groupPartsExtra } from "../models/groupParts";
 import { getScene } from "./render"
 import * as THREE from 'three';
 
@@ -42,7 +42,7 @@ export const changePieceCar = (partModel, pieceModel, colorPaint = "") => {
 }
 
 export const changePieceExtraCar = (partModel, pieceModel, state) => {
-    const color = 0xff0000;
+    const color = 0xecab0f;
     const scene = getScene();
 
 
@@ -78,11 +78,7 @@ export const sumarCotizacion = (modeloCotizar, tabla) => {
                 if (value2.paint !== "Default") {
                     document.getElementById("gramosUsados").innerHTML += `<br>${tabla[modeloCotizar.name][`${key}_${key2}`]}`;
 
-
                     //FUNCIONES COTIZAR
-                    //console.log(tabla)
-                    //console.log(modeloCotizar)
-
                     console.log(tabla[modeloCotizar.name][`${key}_${key2}`])
                 }
             }
@@ -95,15 +91,27 @@ export const cargarTablaModelo = (tabla) => {
     for (const [key, value] of Object.entries(userModelOrder)) {
         if (groupParts.includes(key)) {
             for (const [key2, value2] of Object.entries(value)) { // FILTRA PIEZAS DIFERENTES A DEFAULT //KEY : GRUPO - KEY2: PIEZA
-                //console.log(tabla[userModelOrder.name][`${key}_${key2}`])
                 userModelOrder[key][key2] = JSON.parse(tabla[`${key}_${key2}`])
-
                 if (userModelOrder[key][key2].paint !== "Default") {
                     changePieceCar(key, key2)
 
                     if (key2 === "P1") {
                         actualizarSeleccionP1(key, true);
                     }
+                }
+            }
+        }
+
+        else if (groupPartsExtra.includes(key)) {
+
+            for (const [key2, value2] of Object.entries(value)) {
+                userModelOrder[key][key2] = JSON.parse(tabla[`${key}_${key2}`])
+                if (userModelOrder[key][key2].damage === 1) {
+                    changePieceExtraCar(key, key2, 1)
+                } else {
+                    //changePieceExtraCar(key, key2, 0)
+                    //alert(`${key}_${key2}`)
+                    changePieceExtraCar(key, key2, userModelOrder[key][key2].damage)
                 }
             }
         }
